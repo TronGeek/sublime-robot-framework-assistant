@@ -12,6 +12,6 @@ def rf_table_name(f_path):
 
 def lib_table_name(library):
     return '{realname}-{md5}.json'.format(
-        realname=library[-100:].decode('ascii'),
-        md5=md5(library).hexdigest()
+        realname=library[-100:].decode('utf-8') if isinstance(library, bytes) else library[-100:],
+        md5=md5(library if isinstance(library, bytes) else library.encode('utf-8')).hexdigest()
     )
